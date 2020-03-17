@@ -1,0 +1,61 @@
+package com.guru.splitwiseApp;
+
+import java.util.*;
+
+public class Expense {
+	private int expId;
+	private SplitStrategy splitStrategy;
+	private Currency currencyType;
+	private String description;
+	private List<User> users;
+	
+	public Expense(int id,String splitStrategyId,String currencyType,String des,List<User> users,Map<Integer,Integer> stategyMap) {
+		this.expId=id;
+		this.description=des;
+		this.currencyType=Currency.valueOf(currencyType);
+		this.users=users;
+		this.splitStrategy=SplitStrategy.valueOf(splitStrategyId);
+		
+	}
+	
+	public int getExpId() {
+		return expId;
+	}
+
+	public void setExpId(int expId) {
+		this.expId = expId;
+	}
+
+	public SplitStrategy getSplitStrategy() {
+		return splitStrategy;
+	}
+
+	public void setSplitStrategy(SplitStrategy splitStrategy) {
+		this.splitStrategy = splitStrategy;
+	}
+
+	public Currency getCurrencyType() {
+		return currencyType;
+	}
+
+	public void setCurrencyType(Currency currencyType) {
+		this.currencyType = currencyType;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+}
