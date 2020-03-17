@@ -10,6 +10,11 @@ public class Group implements ITypeOfGroup {
 	private List<Expense> expenseList;
 	private String des; 
 	
+	public Group(String d,List<User> l,int id) {
+		this.id=id;
+		this.des=d;
+		this.users=l;
+	}
 	@Override
 	public int getGrpId() {
 		return 0;
@@ -19,10 +24,12 @@ public class Group implements ITypeOfGroup {
 		
 		return users;
 	}
-	public void addExpenses(int eid,String des) {
+	public void addExpenses(User paidBy,int eid,String des) {
 		Map<Integer,Integer> stategyMap=new HashMap<Integer,Integer>();
-		Expense ex=new Expense(eid,"SPILT_EQUALLY","RUPEE",des,users,stategyMap);
+		Expense ex=new Expense(100,paidBy,eid,"SPILT_EQUALLY","RUPEE",des,users,stategyMap);
+		System.out.println(ex.toString());
 		expenseList.add(ex);
 	}
+	
 	
 }
