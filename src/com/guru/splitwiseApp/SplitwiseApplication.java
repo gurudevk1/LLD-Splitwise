@@ -9,6 +9,7 @@ public class SplitwiseApplication {
 	private static int userIDCnt=4;
 	private static int groupIDCnt=1;
 	private static int expid=0;
+	public static Scanner s;
 	
 	public static void main(String[] args) {
 		SplitwiseApplication sApp=new SplitwiseApplication();
@@ -17,7 +18,7 @@ public class SplitwiseApplication {
 		User u2=new User("Chetua",2,"chetna@gmail.com","780210");
 		User u3=new User("Hitesh",3,"hitesh@gmail.com","780209");
 		User u4=new User("Hitesh",3,"hitesh@gmail.com","780209");
-		Scanner s=new Scanner(System.in);
+		s=new Scanner(System.in);
 		
 		
 		userIdvsUser.put(1,u1);
@@ -26,12 +27,16 @@ public class SplitwiseApplication {
 		userIdvsUser.put(4,u4);
 		
 		List<User> lst=new ArrayList<User>();
+		lst.add(u1);
+		lst.add(u2);
+		lst.add(u3);
+		
 		Group g=new Group("Goa trip",lst,1);
 		grpIdvsGroup.put(1,g);
 		
 		
 		while(true) {
-			System.out.println("Enter the operation \\n 1 Add user \\n2 Add/Edit Group \\n3 Add Expense to a group \\n 4 Add Expense to non group");
+			System.out.println("Enter the operation "+'\n'+"1 Add user "+'\n'+"2 Add/Edit Group "+'\n'+"3 Add Expense to a group "+'\n'+"4 Add Expense to non group "+'\n'+" 5 ShowUserOweDetails");
 			int op=s.nextInt();
 			switch(op) {
 			case 1:
@@ -45,7 +50,10 @@ public class SplitwiseApplication {
 				break;	
 			case 4:
 				addNonGroupExpense();
-				break;		
+				break;
+			case 5:
+				showUserOweDetails();
+				break;	
 			}
 			
 		}
@@ -57,16 +65,25 @@ public class SplitwiseApplication {
 	}
 
 	private static void addGroupExpense() {
-		//get this id
-		Group g=grpIdvsGroup.get(1);
-		//get the input params
-		g.addExpenses(userIdvsUser.get(1),++expid, "Pizza Party");
+		System.out.println("AddGroupExpense: Enter Deatils in order:GrpID PaidByUserId Description Amount");
+		s.nextLine();
+		String[] str=s.nextLine().trim().split("\\s+");
+		Group g=grpIdvsGroup.get(Integer.parseInt(str[0]));
+		g.addExpenses(userIdvsUser.get(Integer.parseInt(str[1])),++expid,str[2],Integer.parseInt(str[3]));
 		
 	}
 	private static void showGroupExpense() {
+
 		
 	}
-
+	private static void showUserOweDetails() {
+		System.out.println("showGroupExpense: Enter Deatils in order:UserId");
+		s.nextLine();
+		String[] str=s.nextLine().trim().split("\\s+");
+		User u=userIdvsUser.get(Integer.parseInt(str[0]));
+		u.userOweDetails();
+		
+	}
 	private static void addGroup() {
 		
 	}

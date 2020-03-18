@@ -9,6 +9,8 @@ public class Expense {
 	private String description;
 	private List<User> users;
 	private int amt;
+	private User paidBy;
+	
 	public Expense(int amt,User paidBy,int id,String splitStrategyId,String currencyType,String des,List<User> users,Map<Integer,Integer> stategyMap) {
 		this.expId=id;
 		this.description=des;
@@ -16,14 +18,8 @@ public class Expense {
 		this.users=users;
 		this.splitStrategy=SplitStrategy.valueOf(splitStrategyId);
 		this.amt=amt;
-		int t=0;
-		if(splitStrategy.getId()==1) {
-			 t=amt/(users.size()+1);
-		}
-		for(int i=0;i<users.size();i++) {
-			paidBy.addAmount(users.get(i), t*(1));
-			users.get(i).addAmount(paidBy, t*(-1));
-		}
+		this.paidBy=paidBy;
+		splitBill();
 	}
 	
 	public int getExpId() {
@@ -67,6 +63,29 @@ public class Expense {
 	}
 	public String toString() {
 		return "Exp Id "+expId+" Amount "+amt+" description "+description+" splitStrategy "+splitStrategy.toString()+" User List"+users;
+	}
+
+	public void splitBill() {
+		if(this.getSplitStrategy().getId()==1) {
+			splitEqually();
+		}else {
+			splitUnEqually();
+		}
+		
+	}
+
+	private void splitUnEqually() {
+		
+	}
+
+	private void splitEqually() {
+		
+		int t=amt/users.size();
+		for(int i=0;i<users.size();i++) {
+			paidBy.addAmount(users.get(i), t*(1));
+			users.get(i).addAmount(paidBy, t*(-1));
+		}
+		
 	}
 
 }
